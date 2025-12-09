@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/storing/save
+Content-Type: application/json
+
+{
+  "author": "andrey",
+  "text": "hello my boy it's me, VLAD! And I stole some text from vlad("
+}
