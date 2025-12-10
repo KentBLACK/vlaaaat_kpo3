@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import ru.valinkin.exceptions.SaveDocumentException;
 import ru.valinkin.models.Document;
 import ru.valinkin.repositories.DocumentRepository;
 
@@ -62,7 +63,8 @@ public class DocumentService {
 
     @Transactional
     public void Save(Document document){
-        System.out.println("Document is saved!");
+        if (document.getAuthor().isEmpty()) throw new SaveDocumentException("Автор не может быть пустым!");
+        if (document.getText().isEmpty()) throw new SaveDocumentException("Текст не может быть пустым!");
         restTemplate.postForEntity("http://analysis-service/api/analysis/post/analyze",
                 new RequestDTO(document.getAuthor(), getPercentOfPlagiate(document.getText())),
                 Void.class);

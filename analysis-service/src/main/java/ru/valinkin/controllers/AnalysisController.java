@@ -1,5 +1,7 @@
 package ru.valinkin.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -7,6 +9,7 @@ import ru.valinkin.services.AnalyzeService;
 
 @RestController
 @RequestMapping("/api/analysis/")
+@Tag(name = "Анализ", description = "Анализ документов")
 public class AnalysisController {
     private final AnalyzeService analyzeService;
     private final RestTemplate restTemplate;
@@ -18,6 +21,7 @@ public class AnalysisController {
     }
 
     @GetMapping("/get/analyse/{author}")
+    @Operation(summary = "Получить анализ по автору")
     public ResponseDTO analise(@PathVariable String author) {
         return new ResponseDTO(analyzeService.getPercentage(author));
     }

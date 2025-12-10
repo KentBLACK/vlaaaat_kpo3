@@ -19,12 +19,29 @@ spring:
           predicates:
             - Path=/api/analysis/**
 
-        - id: default-route
-          uri: lb://AUTH-SERVICE
-          predicates:
-            - Path=/**
-          filters:
-            - SetStatus=404
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    url: /v3/api-docs
+    # Ключевая настройка - указываем URL документации сервисов
+    urls:
+      - url: http://localhost:8081/v3/api-docs  # Прямой URL User Service
+        name: Analysis Service
+      - url: http://localhost:8082/v3/api-docs  # Прямой URL Order Service
+        name: Storing Service
+
+  # Отключаем ненужное
+  show-actuator: false
+  model-and-view-allowed: false
+
+  # Настройки для корректной работы через Gateway
+  use-fqn: false
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
 
 eureka:
   client:

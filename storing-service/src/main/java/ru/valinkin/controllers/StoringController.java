@@ -1,12 +1,19 @@
 package ru.valinkin.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import ru.valinkin.exceptions.SaveDocumentException;
 import ru.valinkin.models.Document;
 import ru.valinkin.services.DocumentService;
 
 @RestController
 @RequestMapping("/api/storing/")
+@Tag(name = "Сервис документов", description = "Работа с документами")
 public class StoringController {
     private final DocumentService documentService;
 
@@ -16,13 +23,14 @@ public class StoringController {
     }
 
     @GetMapping("/get/analyse/{author}")
+    @Operation(summary = "Получить процент плагиата по автору")
     public ResponseDTO getPercentageOfPlagiate(@PathVariable String author){
         return new ResponseDTO(documentService.getPercentOfPlagiate(author));
     }
 
     @PostMapping("/save")
+    @Operation(summary = "Сохранить документ")
     public void saveDocument(@RequestBody RequestDTO requestDTO){
-        System.out.println(requestDTO.getText() + " " + requestDTO.getAuthor());
         documentService.Save(new Document(requestDTO.getText(), requestDTO.getAuthor()));
     }
 
