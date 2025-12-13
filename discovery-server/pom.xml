@@ -5,7 +5,7 @@
 
     <!-- ВАЖНО: родитель должен быть ТВОЙ multi-module pom! -->
     <parent>
-        <groupId>ru.valinkin</groupId>
+        <groupId>ru.smirnov</groupId>
         <artifactId>vlad-dz-kpo3</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
