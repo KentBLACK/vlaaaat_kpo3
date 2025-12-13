@@ -21,7 +21,7 @@ public class AnalysisController {
     }
 
     @GetMapping("/get/analyse/{author}")
-    @Operation(summary = "Получить анализ по автору")
+    @Operation(summary = "Получить процент плагиата по автору")
     public ResponseDTO analise(@PathVariable String author) {
         return new ResponseDTO(analyzeService.getPercentage(author));
     }

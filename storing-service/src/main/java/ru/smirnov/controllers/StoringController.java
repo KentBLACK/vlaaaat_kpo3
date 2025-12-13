@@ -23,7 +23,6 @@ public class StoringController {
     }
 
     @GetMapping("/get/analyse/{author}")
-    @Operation(summary = "Получить процент плагиата по автору")
     public ResponseDTO getPercentageOfPlagiate(@PathVariable String author){
         return new ResponseDTO(documentService.getPercentOfPlagiate(author));
     }
